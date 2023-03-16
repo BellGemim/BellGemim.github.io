@@ -6,7 +6,7 @@
 #include <string.h>
 #include "PilhaDE.h"
 using namespace std;
-//aaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
 
 int main(){
     no *deck = NULL, *mao = NULL, *descarte = NULL;
