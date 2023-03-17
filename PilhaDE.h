@@ -218,3 +218,22 @@ int conta(no *L){
         return 0;
     }
 }
+
+no *compra(no *mao, no **deck){
+    carta save;
+    *deck=POP(*deck,&save);
+    return PUSH(mao,save);
+}
+
+no *discarta(no *mao, no **descarte){
+    carta save;
+    mao = POP(mao,&save);
+    *descarte = PUSH(*descarte,save);
+    return mao;
+}
+
+no *adiciona(no *mao, no **descarte){
+    carta save;
+    *descarte = POP(*descarte, &save);
+    return PUSH(mao,save);
+}
