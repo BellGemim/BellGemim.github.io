@@ -29,6 +29,7 @@ void imprimePilha(no *L, int n) {
 	P = P->prev;
 		
 	for(int i = 0; i<n;i++){
+        printf("%i- ",i);
 		switch (P->info.valor){
 			case 1:
 				printf("As de ");
@@ -226,8 +227,14 @@ no *compra(no *mao, no **deck){
 }
 
 no *discarta(no *mao, no **descarte){
+    no *gi = mao;
     carta save;
-    mao = POP(mao,&save);
+    int escolha;
+    cin>>escolha;
+    for (int i=0;i<escolha;i++){
+        gi = gi->prox;
+    }
+    gi = POP(gi,&save);
     *descarte = PUSH(*descarte,save);
     return mao;
 }
