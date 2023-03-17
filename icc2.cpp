@@ -10,7 +10,7 @@ using namespace std;
 
 int main(){
     no *deck = NULL, *mao = NULL, *descarte = NULL;
-    carta save;
+    
     criaDeck(&deck);
     int c;
     do{
@@ -29,21 +29,18 @@ int main(){
         printf("\n Deck shuffled");
         break;
         case 2:
-        deck=POP(deck,&save);
-        mao = PUSH(mao,save);
+        mao = compra(mao,&deck);
         imprimePilha(mao, conta(mao));
         break;
         case 3:
         if (mao != NULL){
-            mao = POP(mao,&save);
-            descarte = PUSH(descarte,save);
+            mao = discarta(mao,&descarte);
             imprimePilha(descarte,conta(descarte));
         }
         break;
         case 4:
         if (descarte != NULL){
-            descarte = POP(descarte, &save);
-            mao = PUSH(mao,save);
+            mao = adiciona(mao, &descarte);
             imprimePilha(mao, conta(mao));
         }
         break;
