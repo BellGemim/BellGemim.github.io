@@ -174,7 +174,7 @@ void criaDeck(no **L){
 	}
 }
 
-no *deletapilhas(no *L){
+no *deletapilha(no *L){
     if (L==NULL){
         return NULL;
     }
@@ -195,8 +195,9 @@ void embaralha(no **L, int n){
     srand (time(NULL));
 
     for (int i=0; i<n; i++){
-        deck[i]=P->info;
+        *L = POP(*L,&deck[i]);
         P=P->prox;
+
     }
 
     for(int i = 0;i<n;i++){
