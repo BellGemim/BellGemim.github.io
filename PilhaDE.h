@@ -258,11 +258,9 @@ no *compra(no *mao, no **deck){
     return PUSH(mao,save);
 }
 
-no *discarta(no *mao, no **descarte){
+no *discarta(no *mao, no **descarte, int escolha){
     no *gi = mao;
     carta save;
-    int escolha;
-    cin>>escolha;
     for (int i=0;i<escolha;i++){
         gi = gi->prox;
     }
