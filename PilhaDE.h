@@ -140,36 +140,67 @@ no *POP(no *L, carta *n) {
 }
 
 void criaDeck(no **L){
-	carta entrada[52]; 
-    srand (time(NULL));
-    for(int i = 1; i<14; i++){
-        entrada[i-1].naipe='P';
+	carta entrada[40]; 
+    int i;
+    for( i = 0; i<10; i++){
+        entrada[i].naipe='P';
     }
-    for(int i = 14; i<27; i++){
-        entrada[i-1].naipe='O';
+    for( i = 10; i<20; i++){
+        entrada[i].naipe='O';
     }
-    for(int i = 27; i<40; i++){
-        entrada[i-1].naipe='E';
+    for(i = 20; i<30; i++){
+        entrada[i].naipe='E';
     }
-    for(int i = 40; i<53; i++){
-        entrada[i-1].naipe='C';
-    }
-
-
-    for(int i = 1; i<14; i++){
-        entrada[i-1].valor=i;
-    }
-    for(int i = 14; i<27; i++){
-        entrada[i-1].valor=i-13;
-    }
-    for(int i = 27; i<40; i++){
-        entrada[i-1].valor=i-26;
-    }
-    for(int i = 40; i<53; i++){
-        entrada[i-1].valor=i-39;
+    for( i = 30; i<40; i++){
+        entrada[i].naipe='C';
     }
 
-	for(int i = 0;i<52;i++){
+    entrada[0].valor=1;
+    entrada[1].valor=2;
+    entrada[2].valor=3;
+    entrada[3].valor=4;
+    entrada[4].valor=5;
+    entrada[5].valor=6;
+    entrada[6].valor=7;
+    entrada[7].valor=11;
+    entrada[8].valor=12;
+    entrada[9].valor=13;
+
+    entrada[10].valor=1;
+    entrada[11].valor=2;
+    entrada[12].valor=3;
+    entrada[13].valor=4;
+    entrada[14].valor=5;
+    entrada[15].valor=6;
+    entrada[16].valor=7;
+    entrada[17].valor=11;
+    entrada[18].valor=12;
+    entrada[19].valor=13;
+
+    entrada[20].valor=1;
+    entrada[21].valor=2;
+    entrada[22].valor=3;
+    entrada[23].valor=4;
+    entrada[24].valor=5;
+    entrada[25].valor=6;
+    entrada[26].valor=7;
+    entrada[27].valor=11;
+    entrada[28].valor=12;
+    entrada[29].valor=13;
+
+    entrada[30].valor=1;
+    entrada[31].valor=2;
+    entrada[32].valor=3;
+    entrada[33].valor=4;
+    entrada[34].valor=5;
+    entrada[35].valor=6;
+    entrada[36].valor=7;
+    entrada[37].valor=11;
+    entrada[38].valor=12;
+    entrada[39].valor=13;
+
+
+	for( i = 0;i<40;i++){
 		insereFP(&*L,entrada[i],i);
 	}
 }
