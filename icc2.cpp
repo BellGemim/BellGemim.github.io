@@ -27,6 +27,7 @@ int main(){
         case 1:
         embaralha(&deck,conta(deck));
         printf("\n Deck shuffled");
+        imprimePilha(deck,conta(deck));
         break;
         case 2:
         mao = compra(mao,&deck);
