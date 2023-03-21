@@ -7,10 +7,13 @@
 #include "PilhaDE.h"
 using namespace std;
 
-void inicio(no **deck, no *jog[4]){
+void inicio(no **deck, no *jog[4], no *save[4]){
     *deck = deletapilha(*deck);
     for (int i = 0; i<4;i++){
         jog[i] = deletapilha(jog[i]);
+    }
+    for (int i = 0; i<4;i++){
+        save[i] = deletapilha(save[i]);
     }
     criaDeck(&*deck);
     embaralha(&*deck,conta(*deck));
@@ -19,6 +22,8 @@ void inicio(no **deck, no *jog[4]){
           jog[i] = compra(jog[i],&*deck);
         }
     }
+
+
 }
 
 int truco(int truc, int i, int *gr1, int *gr2){
@@ -53,19 +58,31 @@ int truco(int truc, int i, int *gr1, int *gr2){
 
 
 int main(){
-    no *deck = NULL, *jog[4] = {NULL,NULL,NULL,NULL}, *descarte = NULL, *coorti = NULL, *save[4];
+    no *deck = NULL, *jog[4], *coorti = NULL, *save[4];
     int gr1 = 0, gr2= 0, corte, joga, p;
     srand(time(NULL));
+    for(int i=0;i<4;i++){
+        jog[i]=NULL;
+    }
     while (gr1 < 12 && gr2 < 12){
         int truc = 1;
-        inicio(&deck,jog);
+        inicio(&deck,jog,save);
         corte = rand()%conta(deck);
         deck = discarta(deck, &coorti, corte);
         for(int i=0;i<4;i++){
             system("cls");
             imprimePilha(coorti,1);
-            if(descarte != NULL){
-                imprimePilha(descarte,conta(descarte));
+            if(save[0] != NULL){
+                imprimePilha(save[0],conta(save[0]));
+            }
+            if(save[1] != NULL){
+                imprimePilha(save[1],conta(save[1]));
+            }
+            if(save[2] != NULL){
+                imprimePilha(save[2],conta(save[2]));
+            }
+            if(save[3] != NULL){
+                imprimePilha(save[3],conta(save[3]));
             }
             imprimePilha(jog[i],conta(jog[i]));
             if(truc == 1){
@@ -83,8 +100,17 @@ int main(){
             }
             else{
                 imprimePilha(coorti,1);
-                if(descarte != NULL){
-                    imprimePilha(descarte,conta(descarte));
+                if(save[0] != NULL){
+                    imprimePilha(save[0],conta(save[0]));
+                }
+                if(save[1] != NULL){
+                    imprimePilha(save[1],conta(save[1]));
+                }
+                if(save[2] != NULL){
+                    imprimePilha(save[2],conta(save[2]));
+                }
+                if(save[3] != NULL){
+                    imprimePilha(save[3],conta(save[3]));
                 }
                 imprimePilha(jog[i],conta(jog[i]));
                 cin>>joga;
