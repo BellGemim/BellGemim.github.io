@@ -452,7 +452,7 @@ void reagrupa( no **coorti, no **deck, no *save[4], no *jog[4]){
 
 int main(){
     no *deck = NULL, *jog[4], *coorti = NULL, *save[4];
-    int gr1 = 0, gr2= 0, corte, p, joga, truc, ponto1, ponto2, i, j;
+    int gr1 = 0, gr2= 0, corte, p, joga, truc, ponto1, ponto2;
     srand(time(NULL));
     for(int i=0;i<4;i++){
         jog[i]=NULL;
@@ -461,21 +461,22 @@ int main(){
         save[i]=NULL;
     }
     criaDeck(&deck);
-    while (gr1 < 12 && gr2 < 12){
+    while (gr1 < 13 && gr2 < 13){
         truc = 1;
+        ponto1 = ponto2 = 0;
         reagrupa(&coorti, &deck, save, jog);
         corte = rand()%conta(deck);
         deck = discarta(deck, &coorti, corte);
         manilha(&deck,coorti,conta(deck));
         embaralha(&deck,conta(deck));
         
-        for( i = 0;i<4;i++){
-            for( j =0; j<3;j++){
+        for(int i = 0;i<4;i++){
+            for(int j =0; j<3;j++){
                 jog[i] = compra(jog[i],&deck);
             }
         }
-        while((ponto1 && ponto2)<2){
-            for( i=0;i<4;i++){
+        while(ponto1 < 2 && ponto2 < 2){
+            for(int i=0;i<4;i++){
                 system("cls");
                 imprimetudo(coorti,save,jog,i);
                 if(truc == 1){
@@ -499,7 +500,7 @@ int main(){
                 }
             }
             int l = 5, maior = 0;
-            for(i=0;i<4;i++){
+            for(int i=0;i<4;i++){
                 if(save[i] != NULL){
                     if(maior < save[i]->info.ponto){
                         l = i;
@@ -518,7 +519,7 @@ int main(){
             }else if(l == 1 || 3){
                 ponto2++;
             }
-            for( i=0;i<4;i++){
+            for(int i=0;i<4;i++){
                 if(save[i]!= NULL){
                     deck = adiciona(deck,&save[i]);
                 }
@@ -526,10 +527,10 @@ int main(){
         }
 
         if (ponto1>ponto2){
-            printf("time 1 ganha %i pontos e está com %i pontos", truc, gr1);
+            printf("time 1 ganha %i pontos e esta com %i pontos \n", truc, gr1);
             gr1+=truc;
         }else if(ponto1<ponto2){
-            printf("time 2 ganha %i pontos e está com %i pontos", truc, gr2);
+            printf("time 2 ganha %i pontos e esta com %i pontos \n", truc, gr2);
             gr2+=truc;
         }
     }
