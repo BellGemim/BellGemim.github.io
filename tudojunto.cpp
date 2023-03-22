@@ -9,6 +9,7 @@ using namespace std;
 typedef struct{
 	char naipe;
 	int valor;
+    int ponto;
 } carta;
 
 typedef struct NoTag {
@@ -88,7 +89,7 @@ no *PUSH(no *L, carta x){
 
 
 no* insereFP(no **L, carta valor, int prior) {
-    no *N, *P;
+    no *N=NULL, *P=NULL;
 
     N = (no *) malloc(sizeof(no));
     N->info = valor;
@@ -201,7 +202,7 @@ void criaDeck(no **L){
 
 
 	for( i = 0;i<40;i++){
-		insereFP(&*L,entrada[i],i);
+		*L = insereFP(&*L,entrada[i],i);
 	}
 }
 
@@ -259,10 +260,11 @@ no *compra(no *mao, no **deck){
 }
 
 no *discarta(no *mao, no **descarte, int escolha){
-    no *gi = mao;
+    no *gi ;
+    gi = mao;
     carta save;
     for (int i=0;i<escolha;i++){
-        gi = gi->prox;
+        gi = gi->prev;
     }
     gi = POP(gi,&save);
     *descarte = PUSH(*descarte,save);
@@ -276,24 +278,7 @@ no *adiciona(no *mao, no **descarte){
 }
 
 
-void inicio(no **deck, no *jog[4], no *save[4]){
-    *deck = deletapilha(*deck);
-    for (int i = 0; i<4;i++){
-        jog[i] = deletapilha(jog[i]);
-    }
-    for (int i = 0; i<4;i++){
-        save[i] = deletapilha(save[i]);
-    }
-    criaDeck(&*deck);
-    embaralha(&*deck,conta(*deck));
-    for(int i = 0;i<4;i++){
-        for(int j =0; j<3;j++){
-          jog[i] = compra(jog[i],&*deck);
-        }
-    }
 
-
-}
 
 int truco(int truc, int i, int *gr1, int *gr2){
     int p;
@@ -308,7 +293,7 @@ int truco(int truc, int i, int *gr1, int *gr2){
             return truc;
         break;
         case 2:
-            if (i == 0 || i==2){
+            if (i%2==0){
                 *gr1 +=truc;
                 return 0;
             }
@@ -318,7 +303,7 @@ int truco(int truc, int i, int *gr1, int *gr2){
             }
         break;
         case 3:
-            return truco(truc+3,i,&*gr1,&*gr2);;                
+            return truco(truc+3,i+1,&*gr1,&*gr2);;                
         break;
         }
     }while(p!= 1||2||3);
@@ -328,46 +313,29 @@ int truco(int truc, int i, int *gr1, int *gr2){
 
 int main(){
     no *deck = NULL, *jog[4], *coorti = NULL, *save[4];
-    int gr1 = 0, gr2= 0, corte, joga, p;
+    int gr1 = 0, gr2= 0, corte, joga, p, truc, ponto1, ponto2;
     srand(time(NULL));
     for(int i=0;i<4;i++){
         jog[i]=NULL;
     }
+    for(int i=0;i<4;i++){
+        save[i]=NULL;
+    }
+    criaDeck(&deck);
     while (gr1 < 12 && gr2 < 12){
-        int truc = 1;
-        inicio(&deck,jog,save);
+        truc = 1;
+        adiciona(deck,&coorti);
+        embaralha(&deck,conta(deck));
+        for(int i = 0;i<4;i++){
+            for(int j =0; j<3;j++){
+                jog[i] = compra(jog[i],&deck);
+            }
+        }
         corte = rand()%conta(deck);
         deck = discarta(deck, &coorti, corte);
-        for(int i=0;i<4;i++){
-            system("cls");
-            imprimePilha(coorti,1);
-            if(save[0] != NULL){
-                imprimePilha(save[0],conta(save[0]));
-            }
-            if(save[1] != NULL){
-                imprimePilha(save[1],conta(save[1]));
-            }
-            if(save[2] != NULL){
-                imprimePilha(save[2],conta(save[2]));
-            }
-            if(save[3] != NULL){
-                imprimePilha(save[3],conta(save[3]));
-            }
-            imprimePilha(jog[i],conta(jog[i]));
-            if(truc == 1){
-                printf("\n");
-                printf("Truca?\n");
-                printf("1 - Sim\n");
-                printf("2 - Nao\n");
-                cin>>p;
-                if(p == 1){
-                    truc = truco(3,i,&gr1,&gr2);
-                }
-            }
-            if (truc == 0 ){
-                i = 4;
-            }
-            else{
+        while((ponto1 && ponto2)<2){
+            for(int i=0;i<4;i++){
+                system("cls");
                 imprimePilha(coorti,1);
                 if(save[0] != NULL){
                     imprimePilha(save[0],conta(save[0]));
@@ -382,12 +350,39 @@ int main(){
                     imprimePilha(save[3],conta(save[3]));
                 }
                 imprimePilha(jog[i],conta(jog[i]));
-                cin>>joga;
-                jog[i]=discarta(jog[i],&save[i],joga);
+                if(truc == 1){
+                    printf("\n");
+                    printf("Truca?\n");
+                    printf("1 - Sim\n");
+                    printf("2 - Nao\n");
+                    cin>>p;
+                    if(p == 1){
+                        truc = truco(3,i,&gr1,&gr2);
+                    }
+                }
+                if (truc == 0 ){
+                    i = 4;
+                }
+                else{
+                    imprimePilha(coorti,1);
+                    if(save[0] != NULL){
+                        imprimePilha(save[0],conta(save[0]));
+                    }
+                    if(save[1] != NULL){
+                        imprimePilha(save[1],conta(save[1]));
+                    }
+                    if(save[2] != NULL){
+                        imprimePilha(save[2],conta(save[2]));
+                    }
+                    if(save[3] != NULL){
+                        imprimePilha(save[3],conta(save[3]));
+                    }
+                    imprimePilha(jog[i],conta(jog[i]));
+                    cin>>joga;
+                    jog[i]=discarta(jog[i],&save[i],joga);
+                }
             }
         }
-
-        
     }
     if (gr1>12){
         cout << "grupo 1 venceu"<<endl;

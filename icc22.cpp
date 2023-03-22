@@ -117,6 +117,7 @@ int main(){
                 jog[i]=discarta(jog[i],&save[i],joga);
             }
         }
+        
 
         
     }
