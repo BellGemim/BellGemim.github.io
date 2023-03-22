@@ -156,49 +156,89 @@ void criaDeck(no **L){
         entrada[i].naipe='C';
     }
 
-    entrada[0].valor=1;
+     entrada[0].valor=1;
+    entrada[0].ponto=8;
     entrada[1].valor=2;
+    entrada[1].ponto=9;
     entrada[2].valor=3;
+    entrada[2].ponto=10;
     entrada[3].valor=4;
+    entrada[3].ponto=1;
     entrada[4].valor=5;
+    entrada[4].ponto=2;
     entrada[5].valor=6;
+    entrada[5].ponto=3;
     entrada[6].valor=7;
+    entrada[6].ponto=4;
     entrada[7].valor=11;
+    entrada[7].ponto=6;
     entrada[8].valor=12;
+    entrada[8].ponto=5;
     entrada[9].valor=13;
+    entrada[9].ponto=7;
 
     entrada[10].valor=1;
+    entrada[10].ponto=8;
     entrada[11].valor=2;
+    entrada[11].ponto=9;
     entrada[12].valor=3;
+    entrada[12].ponto=10;
     entrada[13].valor=4;
+    entrada[13].ponto=1;
     entrada[14].valor=5;
+    entrada[14].ponto=2;
     entrada[15].valor=6;
+    entrada[15].ponto=3;
     entrada[16].valor=7;
+    entrada[16].ponto=4;
     entrada[17].valor=11;
+    entrada[17].ponto=6;
     entrada[18].valor=12;
+    entrada[18].ponto=5;
     entrada[19].valor=13;
+    entrada[19].ponto=7;
 
     entrada[20].valor=1;
+    entrada[20].ponto=8;
     entrada[21].valor=2;
+    entrada[21].ponto=9;
     entrada[22].valor=3;
+    entrada[22].ponto=10;
     entrada[23].valor=4;
+    entrada[23].ponto=1;
     entrada[24].valor=5;
+    entrada[24].ponto=2;
     entrada[25].valor=6;
+    entrada[25].ponto=3;
     entrada[26].valor=7;
+    entrada[26].ponto=4;
     entrada[27].valor=11;
+    entrada[27].ponto=6;
     entrada[28].valor=12;
+    entrada[28].ponto=5;
     entrada[29].valor=13;
+    entrada[29].ponto=7;
 
     entrada[30].valor=1;
+    entrada[30].ponto=8;
     entrada[31].valor=2;
+    entrada[31].ponto=9;
     entrada[32].valor=3;
+    entrada[32].ponto=10;
     entrada[33].valor=4;
+    entrada[33].ponto=1;
     entrada[34].valor=5;
+    entrada[34].ponto=2;
     entrada[35].valor=6;
+    entrada[35].ponto=3;
     entrada[36].valor=7;
+    entrada[36].ponto=4;
     entrada[37].valor=11;
+    entrada[37].ponto=6;
     entrada[38].valor=12;
+    entrada[38].ponto=5;
     entrada[39].valor=13;
+    entrada[39].ponto=7;
 
 
 	for( i = 0;i<40;i++){
@@ -309,11 +349,42 @@ int truco(int truc, int i, int *gr1, int *gr2){
     }while(p!= 1||2||3);
 }
 
+void imprimetudo(no *coorti,no *save[4], no *jog[4], int i){
+    imprimePilha(coorti,1);
+    if(save[0] != NULL){
+        imprimePilha(save[0],conta(save[0]));
+    }
+    if(save[1] != NULL){
+        imprimePilha(save[1],conta(save[1]));
+    }
+    if(save[2] != NULL){
+        imprimePilha(save[2],conta(save[2]));
+    }
+    if(save[3] != NULL){
+        imprimePilha(save[3],conta(save[3]));
+    }
+    imprimePilha(jog[i],conta(jog[i]));
+}
 
+void manilha(no **deck,no *coorti, int conta){
+    no *F;
+    F = *deck;
+    for(int i = 0; i<conta;i++){
+        if(F->info.ponto==coorti->info.ponto+1){
+            F->info.ponto +=10;  
+        }
+        F=F->prox;
+    }
+}
+
+void desmanilha(){
+    
+}
 
 int main(){
     no *deck = NULL, *jog[4], *coorti = NULL, *save[4];
     int gr1 = 0, gr2= 0, corte, joga, p, truc, ponto1, ponto2;
+    carta salvar[4];
     srand(time(NULL));
     for(int i=0;i<4;i++){
         jog[i]=NULL;
@@ -324,32 +395,29 @@ int main(){
     criaDeck(&deck);
     while (gr1 < 12 && gr2 < 12){
         truc = 1;
-        adiciona(deck,&coorti);
+        if(coorti!=NULL){
+            deck = adiciona(deck,&coorti);
+        }
+        for(int i=0;i<4;i++){
+            if(save[i]!= NULL){
+                deck = adiciona(deck,&save[i]);
+            }
+        }
+
+        corte = rand()%conta(deck);
+        deck = discarta(deck, &coorti, corte);
+        manilha(&deck,coorti,conta(deck));
         embaralha(&deck,conta(deck));
+        
         for(int i = 0;i<4;i++){
             for(int j =0; j<3;j++){
                 jog[i] = compra(jog[i],&deck);
             }
         }
-        corte = rand()%conta(deck);
-        deck = discarta(deck, &coorti, corte);
         while((ponto1 && ponto2)<2){
             for(int i=0;i<4;i++){
                 system("cls");
-                imprimePilha(coorti,1);
-                if(save[0] != NULL){
-                    imprimePilha(save[0],conta(save[0]));
-                }
-                if(save[1] != NULL){
-                    imprimePilha(save[1],conta(save[1]));
-                }
-                if(save[2] != NULL){
-                    imprimePilha(save[2],conta(save[2]));
-                }
-                if(save[3] != NULL){
-                    imprimePilha(save[3],conta(save[3]));
-                }
-                imprimePilha(jog[i],conta(jog[i]));
+                imprimetudo(coorti,save,jog,i);
                 if(truc == 1){
                     printf("\n");
                     printf("Truca?\n");
@@ -364,25 +432,24 @@ int main(){
                     i = 4;
                 }
                 else{
-                    imprimePilha(coorti,1);
-                    if(save[0] != NULL){
-                        imprimePilha(save[0],conta(save[0]));
-                    }
-                    if(save[1] != NULL){
-                        imprimePilha(save[1],conta(save[1]));
-                    }
-                    if(save[2] != NULL){
-                        imprimePilha(save[2],conta(save[2]));
-                    }
-                    if(save[3] != NULL){
-                        imprimePilha(save[3],conta(save[3]));
-                    }
-                    imprimePilha(jog[i],conta(jog[i]));
+                    imprimetudo(coorti,save,jog,i);
                     cin>>joga;
                     jog[i]=discarta(jog[i],&save[i],joga);
                 }
             }
+            for(int i=0;i<4;i++){
+                if(save[i]!= NULL){
+                    deck = adiciona(deck,&save[i]);
+                }
+            }
         }
+        if (ponto1>ponto2){
+            gr1+=truc;
+        }else if(ponto1<ponto2){
+            gr2+=truc;
+        }
+
+
     }
     if (gr1>12){
         cout << "grupo 1 venceu"<<endl;
