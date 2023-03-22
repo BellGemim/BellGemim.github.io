@@ -320,10 +320,11 @@ no *adiciona(no *mao, no **descarte){
 
 
 
-int truco(int truc, int i, int *gr1, int *gr2){
+int truco(int truc, int i, int *gr1, int *gr2, no *jog[4]){
     int p;
     do{
     system("cls");
+    imprimePilha(jog[i+1],conta(jog[i+1]));
     printf("1 - aceitar truco de %i\n", truc);
     printf("2 - recusar\n");
     printf("3 - aumentar aposta\n");
@@ -343,7 +344,7 @@ int truco(int truc, int i, int *gr1, int *gr2){
             }
         break;
         case 3:
-            return truco(truc+3,i+1,&*gr1,&*gr2);;                
+            return truco(truc+3,i+1,&*gr1,&*gr2, jog);;                
         break;
         }
     }while(p!= 1||2||3);
@@ -370,21 +371,88 @@ void manilha(no **deck,no *coorti, int conta){
     no *F;
     F = *deck;
     for(int i = 0; i<conta;i++){
-        if(F->info.ponto==coorti->info.ponto+1){
-            F->info.ponto +=10;  
+        if(coorti->info.ponto != 10){
+            if(F->info.ponto==coorti->info.ponto+1){
+                switch(F->info.naipe){
+                    case 'O':
+                        F->info.ponto +=10; 
+                    break;
+                    case 'E':
+                        F->info.ponto +=20; 
+                    break;
+                    case 'C':
+                        F->info.ponto +=30; 
+                    break;
+                    case 'P':
+                        F->info.ponto +=40; 
+                    break;
+                } 
+            } 
+        }
+        else{
+            if(F->info.ponto== 1){
+                switch(F->info.naipe){
+                    case 'O':
+                        F->info.ponto +=10; 
+                    break;
+                    case 'E':
+                        F->info.ponto +=20; 
+                    break;
+                    case 'C':
+                        F->info.ponto +=30; 
+                    break;
+                    case 'P':
+                        F->info.ponto +=40; 
+                    break;
+                } 
+            } 
         }
         F=F->prox;
     }
 }
 
-void desmanilha(){
-    
+void desmanilha(no **deck, int conta){
+    no *F;
+    F = *deck;
+    for(int i = 0; i<conta;i++){
+        if(F->info.ponto>10 && F->info.ponto<20){
+            F->info.ponto -=10;  
+        }
+        if(F->info.ponto>20 && F->info.ponto<30){
+            F->info.ponto -=20;  
+        }
+        if(F->info.ponto>30 && F->info.ponto<40){
+            F->info.ponto -=30;  
+        }
+        if(F->info.ponto>40 && F->info.ponto<50){
+            F->info.ponto -=40;  
+        }
+        F=F->prox;
+    }
+}
+
+void reagrupa( no **coorti, no **deck, no *save[4], no *jog[4]){
+ if(*coorti!=NULL){
+            *deck = adiciona(*deck,&*coorti);
+        }
+        for(int i=0;i<4;i++){
+            if(save[i]!= NULL){
+                *deck = adiciona(*deck,&save[i]);
+            }
+        }
+        for(int i=0;i<3;i++){
+            for(int i=0;i<4;i++){
+                if(jog[i]!= NULL){
+                    *deck = adiciona(*deck,&jog[i]);
+                }
+            }
+        }
+        desmanilha(&*deck,conta(*deck));
 }
 
 int main(){
     no *deck = NULL, *jog[4], *coorti = NULL, *save[4];
-    int gr1 = 0, gr2= 0, corte, joga, p, truc, ponto1, ponto2;
-    carta salvar[4];
+    int gr1 = 0, gr2= 0, corte, p, joga, truc, ponto1, ponto2, i, j;
     srand(time(NULL));
     for(int i=0;i<4;i++){
         jog[i]=NULL;
@@ -395,27 +463,19 @@ int main(){
     criaDeck(&deck);
     while (gr1 < 12 && gr2 < 12){
         truc = 1;
-        if(coorti!=NULL){
-            deck = adiciona(deck,&coorti);
-        }
-        for(int i=0;i<4;i++){
-            if(save[i]!= NULL){
-                deck = adiciona(deck,&save[i]);
-            }
-        }
-
+        reagrupa(&coorti, &deck, save, jog);
         corte = rand()%conta(deck);
         deck = discarta(deck, &coorti, corte);
         manilha(&deck,coorti,conta(deck));
         embaralha(&deck,conta(deck));
         
-        for(int i = 0;i<4;i++){
-            for(int j =0; j<3;j++){
+        for( i = 0;i<4;i++){
+            for( j =0; j<3;j++){
                 jog[i] = compra(jog[i],&deck);
             }
         }
         while((ponto1 && ponto2)<2){
-            for(int i=0;i<4;i++){
+            for( i=0;i<4;i++){
                 system("cls");
                 imprimetudo(coorti,save,jog,i);
                 if(truc == 1){
@@ -425,11 +485,12 @@ int main(){
                     printf("2 - Nao\n");
                     cin>>p;
                     if(p == 1){
-                        truc = truco(3,i,&gr1,&gr2);
+                        truc = truco(3,i,&gr1,&gr2,jog);
                     }
                 }
                 if (truc == 0 ){
                     i = 4;
+                    ponto1 = ponto2 = 3;
                 }
                 else{
                     imprimetudo(coorti,save,jog,i);
@@ -437,19 +498,40 @@ int main(){
                     jog[i]=discarta(jog[i],&save[i],joga);
                 }
             }
-            for(int i=0;i<4;i++){
+            int l = 5, maior = 0;
+            for(i=0;i<4;i++){
+                if(save[i] != NULL){
+                    if(maior < save[i]->info.ponto){
+                        l = i;
+                        maior = save[i]->info.ponto;
+                    }
+                    else if(maior == save[i]->info.ponto){
+                        l=5;
+                    }
+                }
+            }
+            if (l== 5){
+                ponto1++;
+                ponto2++;
+            }else if(l == 0 || 2){
+                ponto1++;
+            }else if(l == 1 || 3){
+                ponto2++;
+            }
+            for( i=0;i<4;i++){
                 if(save[i]!= NULL){
                     deck = adiciona(deck,&save[i]);
                 }
             }
         }
+
         if (ponto1>ponto2){
+            printf("time 1 ganha %i pontos e está com %i pontos", truc, gr1);
             gr1+=truc;
         }else if(ponto1<ponto2){
+            printf("time 2 ganha %i pontos e está com %i pontos", truc, gr2);
             gr2+=truc;
         }
-
-
     }
     if (gr1>12){
         cout << "grupo 1 venceu"<<endl;
