@@ -527,11 +527,11 @@ int main(){
         }
 
         if (ponto1>ponto2){
-            printf("time 1 ganha %i pontos e esta com %i pontos \n", truc, gr1);
             gr1+=truc;
+            printf("time 1 ganha %i pontos e esta com %i pontos \n", truc, gr1);
         }else if(ponto1<ponto2){
-            printf("time 2 ganha %i pontos e esta com %i pontos \n", truc, gr2);
             gr2+=truc;
+            printf("time 2 ganha %i pontos e esta com %i pontos \n", truc, gr2);
         }
     }
     if (gr1>12){
