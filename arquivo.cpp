@@ -59,14 +59,31 @@ int recoloca(int v[], int n){
     return 0;
 }
 
+int bb (int v[], int ini, int fim, int proc){
+    int meio = (ini+fim)/2;
+    if (v[meio] == proc){
+        return meio;
+    }
+    else{
+        if(proc > v[meio]){
+            return bb(v,meio,fim,proc);
+        }
+        else{
+            return bb(v,ini,meio,proc);
+        }
+    }
+}
+
+
 int main(){
     int n = conta();
-    int v[n];
+    int *v = new int[n];
     ler(v, n);
     insertion(v,n);
     for(int l=0;l<n;l++){
         cout << v[l] << endl;
     }
     recoloca(v,n);
+    delete v;
     return 0;
 }
