@@ -76,13 +76,18 @@ int bb (int v[], int ini, int fim, int proc){
 
 
 int main(){
-    int n = conta();
+    int x, n = conta();
     int *v = new int[n];
     ler(v, n);
+    for(int l=0;l<n;l++){
+        cout << v[l] << endl;
+    }
     insertion(v,n);
     for(int l=0;l<n;l++){
         cout << v[l] << endl;
     }
+    cin>>x;
+    cout<< "v["<< bb(v,0,n-1,x) << "]"<<endl;
     recoloca(v,n);
     delete v;
     return 0;
