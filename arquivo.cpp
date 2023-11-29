@@ -80,12 +80,14 @@ int main(){
     int *v = new int[n];
     ler(v, n);
     for(int l=0;l<n;l++){
-        cout << v[l] << endl;
+        cout << v[l] << " ";
     }
+    cout<< endl;
     insertion(v,n);
     for(int l=0;l<n;l++){
-        cout << v[l] << endl;
+        cout << v[l] << " ";
     }
+    cout<< endl;
     cin>>x;
     cout<< "v["<< bb(v,0,n-1,x) << "]"<<endl;
     recoloca(v,n);
