@@ -4,17 +4,17 @@
 
 using namespace std;
 
-int f(int x){
-    if(x==1){
+int f(int y){
+    if(y==1){
         return 1;
     }
     else{
-        return f(x-1)+x;
+        return f(y-1)+y;
     }
 }
 
 int main(){
-    int x;
-    cin>>x;
-    cout<< f(x)<< endl;
+    int y;
+    cin>>y;
+    cout<< f(y)<< endl;
 }
