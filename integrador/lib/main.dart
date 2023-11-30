@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home : Pagmain(),
+      home : Paglogin(),
       routes: {
         '/pagmain' :(context) => Pagmain(),
         '/paglogin' :(context) => Paglogin(),
