@@ -1,31 +1,24 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:integrador/pages/paghome.dart';
+import 'package:integrador/pages/paglogin.dart';
 
 class Pagmain extends StatelessWidget {
-  const Pagmain({super.key});
+  const Pagmain({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepPurple,
-      body : Center(
-        child :Container(
-          height: 420,
-          width: 600,
-          color: Colors.deepPurple[400],
-          child: Center(
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, '/pagsign');
-              },
-              child: Container(
-                height: 210,
-                width: 300,
-                color: Colors.deepPurple[200],
-              ),
-            ),
-          ),
-        ),
-      ),
+      body: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot){
+          if (snapshot.hasData){
+            return Paghome();
+          }else{
+            return Paglogin();
+          }
+        },
+      )
     );
   }
 }
