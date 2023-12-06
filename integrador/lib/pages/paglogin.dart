@@ -19,7 +19,7 @@ class _PagloginState extends State<Paglogin> {
       email: usuarioController.text.trim(),
       password: senhaController.text.trim());
     }
-    
+
 
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -35,11 +35,11 @@ class _PagloginState extends State<Paglogin> {
 
                 Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20))
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    color: Colors.deepPurple[300],
                   ),
                   width: 100,
                   height: 60,
-                  color: Colors.deepPurple[300],
                   margin: EdgeInsets.all(5),
                   child: Center(
                     child: Text(
@@ -53,22 +53,22 @@ class _PagloginState extends State<Paglogin> {
 
                 Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20))
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    color: Colors.deepPurple[300],
                   ),
                   width: 100,
                   height: 60,
-                  color: Colors.deepPurple[300],
                   margin: EdgeInsets.all(5),
                   child: TextField(controller: usuarioController ,),
                 ),
 
                 Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20))
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    color: Colors.deepPurple[300],
                   ),
                   width: 100,
                   height: 60,
-                  color: Colors.deepPurple[300],
                   margin: EdgeInsets.all(5),
                   child: Center(
                     child: Text(
@@ -82,11 +82,11 @@ class _PagloginState extends State<Paglogin> {
 
                 Container(
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20))
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: Colors.deepPurple[300],
                   ),
                   width: 100,
                   height: 60,
-                  color: Colors.deepPurple[300],
                   margin: EdgeInsets.all(5),
                   child: TextField(
                     controller: senhaController,
@@ -100,11 +100,11 @@ class _PagloginState extends State<Paglogin> {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20))
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: Colors.deepPurple[300],
                     ),
                     width: 100,
                     height: 60,
-                    color: Colors.deepPurple[300],
                     margin: EdgeInsets.all(5),
                     child: Center(
                       child: Text(
@@ -123,11 +123,11 @@ class _PagloginState extends State<Paglogin> {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20))
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: Colors.deepPurple[300],
                     ),
                     width: 100,
                     height: 60,
-                    color: Colors.deepPurple[300],
                     margin: EdgeInsets.all(5),
                     child: Center(
                       child: Text(
