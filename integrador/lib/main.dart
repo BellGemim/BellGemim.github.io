@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:integrador/pages/paghome.dart';
 import 'package:integrador/pages/paglogin.dart';
 import 'package:integrador/pages/pagmain.dart';
 import 'package:integrador/pages/pagsingup.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home : Pagmain(),
       routes: {
+        '/paghome' :(context) => Paghome(),
         '/pagmain' :(context) => Pagmain(),
         '/paglogin' :(context) => Paglogin(),
         '/pagsign' :(context) => Pagsingup(),

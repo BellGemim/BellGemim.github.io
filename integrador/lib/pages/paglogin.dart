@@ -11,7 +11,6 @@ class Paglogin extends StatefulWidget {
 
 class _PagloginState extends State<Paglogin> {
 
-  @override
   final usuarioController = TextEditingController();
   final senhaController = TextEditingController();
 
@@ -35,6 +34,9 @@ class _PagloginState extends State<Paglogin> {
               children: [
 
                 Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20))
+                  ),
                   width: 100,
                   height: 60,
                   color: Colors.deepPurple[300],
@@ -50,6 +52,9 @@ class _PagloginState extends State<Paglogin> {
                 ),
 
                 Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20))
+                  ),
                   width: 100,
                   height: 60,
                   color: Colors.deepPurple[300],
@@ -58,6 +63,9 @@ class _PagloginState extends State<Paglogin> {
                 ),
 
                 Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20))
+                  ),
                   width: 100,
                   height: 60,
                   color: Colors.deepPurple[300],
@@ -73,6 +81,9 @@ class _PagloginState extends State<Paglogin> {
                 ),
 
                 Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20))
+                  ),
                   width: 100,
                   height: 60,
                   color: Colors.deepPurple[300],
@@ -88,6 +99,9 @@ class _PagloginState extends State<Paglogin> {
                     checaCadastro();
                   },
                   child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20))
+                    ),
                     width: 100,
                     height: 60,
                     color: Colors.deepPurple[300],
@@ -108,6 +122,9 @@ class _PagloginState extends State<Paglogin> {
                     Navigator.pushNamed(context, '/pagsign');
                   },
                   child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20))
+                    ),
                     width: 100,
                     height: 60,
                     color: Colors.deepPurple[300],
