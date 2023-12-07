@@ -14,13 +14,35 @@ class _PagloginState extends State<Paglogin> {
   final usuarioController = TextEditingController();
   final senhaController = TextEditingController();
 
-  Future checaCadastro() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: usuarioController.text.trim(),
-      password: senhaController.text.trim());
+    Future checaCadastro() async {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: usuarioController.text.trim(),
+        password: senhaController.text.trim());
     }
 
+  showAlertDialog(BuildContext context) {
+    Widget okButton = TextButton(
+      child: Text("OK"),
+      onPressed: () { },
+    );
 
+    AlertDialog alerta = AlertDialog(
+      title: Text("Erro"),
+      content: Text("conta errada / inexistente."),
+      actions: [
+        okButton,
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alerta;
+      },
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return  Scaffold(
         backgroundColor: Colors.deepPurple,
@@ -97,6 +119,9 @@ class _PagloginState extends State<Paglogin> {
                 GestureDetector(
                   onTap: (){
                     checaCadastro();
+                    if (FirebaseAuth.instance.currentUser == null) {
+                      showAlertDialog(context);
+                    }
                   },
                   child: Container(
                     decoration: BoxDecoration(
