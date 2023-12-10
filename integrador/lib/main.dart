@@ -12,7 +12,14 @@ Future main() async{
  WidgetsFlutterBinding.ensureInitialized();
 
   if(kIsWeb){
-    await Firebase.initializeApp(options: FirebaseOptions(apiKey: "AIzaSyDC1cckBjwDKEiFPNzTdOrPGL_4MLlcBg4", appId: "1:673412955638:web:1c0e13e46a0410048b5bd7", messagingSenderId:"673412955638", projectId: "integras-43a6d"));
+    await Firebase.initializeApp(
+      options: FirebaseOptions(
+        apiKey: "AIzaSyDC1cckBjwDKEiFPNzTdOrPGL_4MLlcBg4",
+        appId: "1:673412955638:web:1c0e13e46a0410048b5bd7", 
+        messagingSenderId:"673412955638", 
+        projectId: "integras-43a6d"
+      )
+    );
   }
 
   Firebase.initializeApp();
