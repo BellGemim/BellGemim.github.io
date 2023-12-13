@@ -86,6 +86,7 @@ class _PagloginState extends State<Paglogin> {
                 GestureDetector(
                   onTap: (){
                     checaCadastro();
+                    Navigator.pushNamed(context, '/pagmain');
                   },
                   child: Container(
                     width: 100,
