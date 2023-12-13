@@ -21,7 +21,8 @@ class _PaghomeState extends State<Paghome> {
           MaterialButton(onPressed: (){
             FirebaseAuth.instance.signOut();
           },
-          color: Colors.amber,
+            color: Colors.amber,
+            child:Text("deslogar"),
           ),
         ],
       ))
