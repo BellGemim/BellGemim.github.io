@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -18,11 +20,18 @@ class _PaghomeState extends State<Paghome> {
         children: [
           Text("fez login com " + user.email!),
 
-          MaterialButton(onPressed: (){
+          GestureDetector(
+            onTap: (){
             FirebaseAuth.instance.signOut();
           },
+          child : Container(
             color: Colors.amber,
-            child:Text("deslogar"),
+            child:Text(
+              "deslogar",
+              style: TextStyle(color: Colors.black87),
+            ),
+          ),
+
           ),
         ],
       ))
