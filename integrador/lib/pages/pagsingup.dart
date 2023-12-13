@@ -25,6 +25,7 @@ class _PagssingupState extends State<Pagsingup> {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: usuarioController.text.trim(),
           password: senhaController.text.trim());
+        adicionaDetalhes();
       }
     }
 
