@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Pagsingup extends StatefulWidget {
   const Pagsingup({super.key});
@@ -15,6 +16,9 @@ class _PagssingupState extends State<Pagsingup> {
   final usuarioController = TextEditingController();
   final senhaController = TextEditingController();
   final confirmaController = TextEditingController();
+  final nomeController = TextEditingController();
+  final placaController = TextEditingController();
+  final cidadeController = TextEditingController();
     
     Future criaCadastro() async {
       if (senhaController.text.trim() == confirmaController.text.trim()){
@@ -23,6 +27,15 @@ class _PagssingupState extends State<Pagsingup> {
           password: senhaController.text.trim());
       }
     }
+
+    Future adicionaDetalhes() async{
+      await FirebaseFirestore.instance.collection('guincho').add({
+        'nome': nomeController.text.trim(),
+        'placa': placaController.text.trim(),
+        'cidade': cidadeController.text.trim(),
+      });
+    }
+
 
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -81,7 +94,52 @@ class _PagssingupState extends State<Pagsingup> {
                     decoration: InputDecoration(hintText: "Confirmar Senha"),
                     ),
                 ),
+
+                Container(
+                  width: 100,
+                  height: 53,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: Colors.deepPurple[300],
+                    ),
+                  margin: EdgeInsets.all(5),
+                  child: TextField(
+                    controller: nomeController,
+                    obscureText: true,
+                    decoration: InputDecoration(hintText: "Nome"),
+                    ),
+                ),
                 
+                Container(
+                  width: 100,
+                  height: 53,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: Colors.deepPurple[300],
+                    ),
+                  margin: EdgeInsets.all(5),
+                  child: TextField(
+                    controller: placaController,
+                    obscureText: true,
+                    decoration: InputDecoration(hintText: "Placa"),
+                    ),
+                ),
+
+                Container(
+                  width: 100,
+                  height: 53,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: Colors.deepPurple[300],
+                    ),
+                  margin: EdgeInsets.all(5),
+                  child: TextField(
+                    controller: cidadeController,
+                    obscureText: true,
+                    decoration: InputDecoration(hintText: "Cidade (tudo minusculo)"),
+                    ),
+                ),
+
                 GestureDetector(
                   onTap: (){
                     criaCadastro();
@@ -120,7 +178,7 @@ class _PagssingupState extends State<Pagsingup> {
                     margin: EdgeInsets.all(5),
                     child: Center(
                       child: Text(
-                        "Login",
+                        "Ja Tenho Conta",
                         style: TextStyle(
                           fontSize: 30,
                         ),
