@@ -39,77 +39,46 @@ class _PagssingupState extends State<Pagsingup> {
                 Container(
                   width: 100,
                   height: 53,
-                  color: Colors.deepPurple[300],
-                  margin: EdgeInsets.all(5),
-                  child: Center(
-                    child: Text(
-                      "Email:",
-                      style: TextStyle(
-                        fontSize: 30,
-                      ),
-                      ),
-                  ),
-                ),
-
-                Container(
-                  width: 100,
-                  height: 53,
-                  color: Colors.deepPurple[300],
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: Colors.deepPurple[300],
+                    ),
                   margin: EdgeInsets.all(5),
                   child: TextField(
                     controller: usuarioController ,
+                    decoration: InputDecoration(hintText: "Email"),
                     ),
                 ),
+
 
                 Container(
                   width: 100,
                   height: 53,
-                  color: Colors.deepPurple[300],
-                  margin: EdgeInsets.all(5),
-                  child: Center(
-                    child: Text(
-                      "Senha :",
-                      style: TextStyle(
-                        fontSize: 30,
-                      ),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: Colors.deepPurple[300],
                     ),
-                  ), 
-                ),
-
-                Container(
-                  width: 100,
-                  height: 53,
-                  color: Colors.deepPurple[300],
                   margin: EdgeInsets.all(5),
                   child: TextField(
                     controller: senhaController,
                     obscureText: true,
+                    decoration: InputDecoration(hintText: "Senha"),
                     ),
                 ),
                 
-                Container(
-                  width: 100,
-                  height: 53,
-                  color: Colors.deepPurple[300],
-                  margin: EdgeInsets.all(5),
-                  child: Center(
-                    child: Text(
-                      "Confirmar Senha :",
-                      style: TextStyle(
-                        fontSize: 30,
-                      ),
-                    ),
-                  ), 
-                ),
 
                 Container(
                   width: 100,
                   height: 53,
-                  color: Colors.deepPurple[300],
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: Colors.deepPurple[300],
+                    ),
                   margin: EdgeInsets.all(5),
                   child: TextField(
                     controller: confirmaController,
                     obscureText: true,
+                    decoration: InputDecoration(hintText: "Confirmar Senha"),
                     ),
                 ),
                 
@@ -121,7 +90,10 @@ class _PagssingupState extends State<Pagsingup> {
                   child: Container(
                     width: 100,
                     height: 53,
-                    color: Colors.deepPurple[300],
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: Colors.deepPurple[300],
+                    ),
                     margin: EdgeInsets.all(5),
                     child: Center(
                       child: Text(
@@ -141,7 +113,10 @@ class _PagssingupState extends State<Pagsingup> {
                   child: Container(
                     width: 100,
                     height: 53,
-                    color: Colors.deepPurple[300],
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: Colors.deepPurple[300],
+                    ),
                     margin: EdgeInsets.all(5),
                     child: Center(
                       child: Text(
