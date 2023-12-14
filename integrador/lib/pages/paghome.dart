@@ -14,28 +14,40 @@ class Paghome extends StatefulWidget {
 
 class _PaghomeState extends State<Paghome> {
 
-  final user = FirebaseAuth.instance.currentUser!;
-
-  List <String> ids = [];
+    final user = FirebaseAuth.instance.currentUser!;
+  final CollectionReference cliente = FirebaseFirestore.instance.collection('cliente');
   late String rg;
 
-  Future pegaid() async {
-    await FirebaseFirestore.instance.collection('cliente').get().then(
-      (snapshot) => snapshot.docs.forEach((documento) { 
-          ids.add(documento.reference.id);
-      })
-    );
+  Future<void> pegaid() async {
+    List<String> ids = [];
+
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('cliente').get();
+      ids = querySnapshot.docs.map((doc) => doc.id).toList();
+    } catch (e) {
+      print('Erro ao obter IDs: $e');
+    }
+
     for (var name in ids) {
       var documentSnapshot = await FirebaseFirestore.instance.collection('cliente').doc(name).get();
       if (documentSnapshot.data()!['uid'] == user.uid) {
-        rg = name; 
+        setState(() {
+          rg = name;
+        });
         break;
       }
     }
   }
 
+  Future<void> initializeRg() async {
+      await pegaid();
+  }
 
-
+  Future<void> deleta() async {
+    await user.delete();
+    await cliente.doc(rg).delete();
+    Navigator.pushNamed(context, '/paglogin');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +55,16 @@ class _PaghomeState extends State<Paghome> {
       body: Center(child:Column(
         children: [
           FutureBuilder(
-            future: pegaid(),
+            future: initializeRg(),
             builder: (context, snapshot) { 
-              return Peganome(id: rg);
-              },
-             ),
+              if (rg!=null){
+                return Peganome(id: rg);
+              }
+              else{
+                return Text('minha buceta');
+              }
+            },
+          ),
 
           Text("fez login com " + user.email!),
 
@@ -64,7 +81,31 @@ class _PaghomeState extends State<Paghome> {
             ),
           ),
 
+          GestureDetector(
+            onTap: (){
+            Navigator.pushNamed(context, '/pagtroca');
+          },
+            child : Container(
+              color: Colors.amber,
+              child:Text(
+                "Update",
+                style: TextStyle(color: Colors.black87),
+              ),
+            ),
+          ),
 
+          GestureDetector(
+            onTap: (){
+            deleta();
+          },
+            child : Container(
+              color: Colors.amber,
+              child:Text(
+                "deleta",
+                style: TextStyle(color: Colors.black87),
+              ),
+            ),
+          ),
 
         ],
       ))
