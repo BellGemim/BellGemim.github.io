@@ -19,7 +19,8 @@ class _PagssingupState extends State<Pagsingup> {
   final nomeController = TextEditingController();
   final placaController = TextEditingController();
   final cidadeController = TextEditingController();
-    
+  final valorController = TextEditingController();
+
     Future criaCadastro() async {
       if (senhaController.text.trim() == confirmaController.text.trim()){
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -34,6 +35,8 @@ class _PagssingupState extends State<Pagsingup> {
         'nome': nomeController.text.trim(),
         'placa': placaController.text.trim(),
         'cidade': cidadeController.text.trim(),
+        'uid': FirebaseAuth.instance.currentUser!.uid,
+        'valor por kilometro': valorController.text.trim()
       });
     }
 
@@ -106,7 +109,6 @@ class _PagssingupState extends State<Pagsingup> {
                   margin: EdgeInsets.all(5),
                   child: TextField(
                     controller: nomeController,
-                    obscureText: true,
                     decoration: InputDecoration(hintText: "Nome"),
                     ),
                 ),
@@ -121,7 +123,6 @@ class _PagssingupState extends State<Pagsingup> {
                   margin: EdgeInsets.all(5),
                   child: TextField(
                     controller: placaController,
-                    obscureText: true,
                     decoration: InputDecoration(hintText: "Placa"),
                     ),
                 ),
@@ -136,7 +137,6 @@ class _PagssingupState extends State<Pagsingup> {
                   margin: EdgeInsets.all(5),
                   child: TextField(
                     controller: cidadeController,
-                    obscureText: true,
                     decoration: InputDecoration(hintText: "Cidade (tudo minusculo)"),
                     ),
                 ),
@@ -144,7 +144,7 @@ class _PagssingupState extends State<Pagsingup> {
                 GestureDetector(
                   onTap: (){
                     criaCadastro();
-                    Navigator.pushNamed(context, '/pagsign');
+                    Navigator.pushNamed(context, '/pagmain');
                   },
                   child: Container(
                     width: 100,
