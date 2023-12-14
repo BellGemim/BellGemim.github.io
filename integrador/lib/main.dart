@@ -7,6 +7,7 @@ import 'package:integrador/pages/paghome.dart';
 import 'package:integrador/pages/paglogin.dart';
 import 'package:integrador/pages/pagmain.dart';
 import 'package:integrador/pages/pagsingup.dart';
+import 'package:integrador/pages/pagtroca.dart';
 
 Future main() async{
  WidgetsFlutterBinding.ensureInitialized();
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
         '/pagmain' :(context) => Pagmain(),
         '/paglogin' :(context) => Paglogin(),
         '/pagsign' :(context) => Pagsingup(),
+        '/pagtroca' :(context) => Pagtroca(),
       },
     );
   }

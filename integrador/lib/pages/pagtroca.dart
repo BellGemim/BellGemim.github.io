@@ -3,42 +3,50 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Pagsingup extends StatefulWidget {
-  const Pagsingup({super.key});
+class Pagtroca extends StatefulWidget {
+  const Pagtroca({super.key});
 
   @override
-  State<Pagsingup> createState() => _PagssingupState();
+  State<Pagtroca> createState() => _PagtrocaState();
 }
 
-class _PagssingupState extends State<Pagsingup> {
+class _PagtrocaState extends State<Pagtroca> {
 
-  @override
-  final usuarioController = TextEditingController();
-  final senhaController = TextEditingController();
-  final confirmaController = TextEditingController();
   final nomeController = TextEditingController();
   final placaController = TextEditingController();
   final cidadeController = TextEditingController();
 
-    Future criaCadastro() async {
-      if (senhaController.text.trim() == confirmaController.text.trim()){
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: usuarioController.text.trim(),
-          password: senhaController.text.trim());
-        adicionaDetalhes();
+  final CollectionReference cliente = FirebaseFirestore.instance.collection('cliente');
+
+  final user = FirebaseAuth.instance.currentUser!;
+  List <String> ids = [];
+  late String rg;
+
+  Future pegaid() async {
+    await FirebaseFirestore.instance.collection('cliente').get().then(
+      (snapshot) => snapshot.docs.forEach((documento) { 
+          ids.add(documento.reference.id);
+      })
+    );
+    for (var name in ids) {
+      var documentSnapshot = await FirebaseFirestore.instance.collection('cliente').doc(name).get();
+      if (documentSnapshot.data()!['uid'] == user.uid) {
+        rg = name; 
+        break;
       }
     }
+  }
 
-    Future adicionaDetalhes() async{
-      await FirebaseFirestore.instance.collection('cliente').add({
+    Future<void> trocainfo(){
+      return cliente.doc(rg).update({
         'nome': nomeController.text.trim(),
         'placa carro': placaController.text.trim(),
         'cidade': cidadeController.text.trim(),
-        'uid': FirebaseAuth.instance.currentUser!.uid,
       });
     }
 
 
+  @override
   Widget build(BuildContext context) {
     return  Scaffold(
         backgroundColor: Colors.deepPurple,
@@ -50,53 +58,7 @@ class _PagssingupState extends State<Pagsingup> {
             child: ListView(
               
               children: [
-
-                Container(
-                  width: 100,
-                  height: 53,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: Colors.deepPurple[300],
-                    ),
-                  margin: EdgeInsets.all(5),
-                  child: TextField(
-                    controller: usuarioController ,
-                    decoration: InputDecoration(hintText: "Email"),
-                    ),
-                ),
-
-
-                Container(
-                  width: 100,
-                  height: 53,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: Colors.deepPurple[300],
-                    ),
-                  margin: EdgeInsets.all(5),
-                  child: TextField(
-                    controller: senhaController,
-                    obscureText: true,
-                    decoration: InputDecoration(hintText: "Senha"),
-                    ),
-                ),
                 
-
-                Container(
-                  width: 100,
-                  height: 53,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: Colors.deepPurple[300],
-                    ),
-                  margin: EdgeInsets.all(5),
-                  child: TextField(
-                    controller: confirmaController,
-                    obscureText: true,
-                    decoration: InputDecoration(hintText: "Confirmar Senha"),
-                    ),
-                ),
-
                 Container(
                   width: 100,
                   height: 53,
@@ -142,7 +104,8 @@ class _PagssingupState extends State<Pagsingup> {
 
                 GestureDetector(
                   onTap: (){
-                    criaCadastro();
+                    pegaid();
+                    trocainfo();
                     Navigator.pushNamed(context, '/pagmain');
                   },
                   child: Container(
@@ -155,7 +118,7 @@ class _PagssingupState extends State<Pagsingup> {
                     margin: EdgeInsets.all(5),
                     child: Center(
                       child: Text(
-                        "Criar Conta",
+                        "Trocar",
                         style: TextStyle(
                           fontSize: 30,
                         ),
@@ -166,7 +129,7 @@ class _PagssingupState extends State<Pagsingup> {
 
                 GestureDetector(
                   onTap: (){
-                    Navigator.pushNamed(context, '/paglogin');
+                    Navigator.pushNamed(context, '/pagmain');
                   },
                   child: Container(
                     width: 100,
@@ -178,7 +141,7 @@ class _PagssingupState extends State<Pagsingup> {
                     margin: EdgeInsets.all(5),
                     child: Center(
                       child: Text(
-                        "Ja Tenho Conta",
+                        "Cancelar",
                         style: TextStyle(
                           fontSize: 30,
                         ),
