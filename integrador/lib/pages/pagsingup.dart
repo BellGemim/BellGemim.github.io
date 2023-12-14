@@ -19,7 +19,6 @@ class _PagssingupState extends State<Pagsingup> {
   final nomeController = TextEditingController();
   final placaController = TextEditingController();
   final cidadeController = TextEditingController();
-  final valorController = TextEditingController();
 
     Future criaCadastro() async {
       if (senhaController.text.trim() == confirmaController.text.trim()){
@@ -31,12 +30,11 @@ class _PagssingupState extends State<Pagsingup> {
     }
 
     Future adicionaDetalhes() async{
-      await FirebaseFirestore.instance.collection('guincho').add({
+      await FirebaseFirestore.instance.collection('cliente').add({
         'nome': nomeController.text.trim(),
-        'placa': placaController.text.trim(),
+        'placa carro': placaController.text.trim(),
         'cidade': cidadeController.text.trim(),
         'uid': FirebaseAuth.instance.currentUser!.uid,
-        'valor por kilometro': valorController.text.trim()
       });
     }
 
@@ -140,6 +138,7 @@ class _PagssingupState extends State<Pagsingup> {
                     decoration: InputDecoration(hintText: "Cidade (tudo minusculo)"),
                     ),
                 ),
+                
 
                 GestureDetector(
                   onTap: (){
