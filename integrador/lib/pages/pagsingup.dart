@@ -106,7 +106,6 @@ class _PagssingupState extends State<Pagsingup> {
                   margin: EdgeInsets.all(5),
                   child: TextField(
                     controller: nomeController,
-                    obscureText: true,
                     decoration: InputDecoration(hintText: "Nome"),
                     ),
                 ),
@@ -121,7 +120,6 @@ class _PagssingupState extends State<Pagsingup> {
                   margin: EdgeInsets.all(5),
                   child: TextField(
                     controller: placaController,
-                    obscureText: true,
                     decoration: InputDecoration(hintText: "Placa"),
                     ),
                 ),
@@ -136,7 +134,6 @@ class _PagssingupState extends State<Pagsingup> {
                   margin: EdgeInsets.all(5),
                   child: TextField(
                     controller: cidadeController,
-                    obscureText: true,
                     decoration: InputDecoration(hintText: "Cidade (tudo minusculo)"),
                     ),
                 ),
