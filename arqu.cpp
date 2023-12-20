@@ -122,15 +122,13 @@ int main(){
         cin.get();
         switch (opcao){
             case 'I':
-            insere_livros() == -1? cout << "Nao foi possivel abrir o arquivo para
-            insercao de dados" : cout << endl;
+                insere_livros() == -1? cout << "Nao foi possivel abrir o arquivo para insercao de dados" : cout << endl;
             break;
             case 'L':
-            mostra_todos() == -1? cout << "Nao foi possivel abrir o arquivo para
-            leitura dos dados" : cout << endl;
+                mostra_todos() == -1? cout << "Nao foi possivel abrir o arquivo para leitura dos dados" : cout << endl;
             break;
             case 'B':
-            busca();
+                busca();
             break;
         }
     } while (opcao != 'F');
