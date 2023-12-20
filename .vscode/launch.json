@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/gianc/Documents/GitHub/BellGemim.github.io",
-      "program": "c:/Users/gianc/Documents/GitHub/BellGemim.github.io/build/Debug/outDebug",
+      "cwd": "c:/Users/gianc/Documents/BellGemim.github.io",
+      "program": "c:/Users/gianc/Documents/BellGemim.github.io/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
