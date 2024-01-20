@@ -21,12 +21,11 @@ class _PagssingupState extends State<Pagsingup> {
   final cidadeController = TextEditingController();
 
     Future criaCadastro() async {
-      if (senhaController.text.trim() == confirmaController.text.trim()){
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: usuarioController.text.trim(),
-          password: senhaController.text.trim());
-        await adicionaDetalhes();
-      }
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: usuarioController.text.trim(),
+      password: senhaController.text.trim());
+      await adicionaDetalhes();
+      
     }
 
     Future adicionaDetalhes() async{
@@ -142,8 +141,10 @@ class _PagssingupState extends State<Pagsingup> {
 
                 GestureDetector(
                   onTap: (){
-                    criaCadastro();
-                    Navigator.pushNamed(context, '/pagmain');
+                    if (senhaController.text.trim() == confirmaController.text.trim()){
+                      criaCadastro();
+                      Navigator.pushNamed(context, '/pagmain');
+                    }
                   },
                   child: Container(
                     width: 100,
