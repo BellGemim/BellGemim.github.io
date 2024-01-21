@@ -13,6 +13,7 @@ class Pagsingup extends StatefulWidget {
 class _PagssingupState extends State<Pagsingup> {
 
   @override
+  
   final usuarioController = TextEditingController();
   final senhaController = TextEditingController();
   final confirmaController = TextEditingController();
@@ -20,22 +21,20 @@ class _PagssingupState extends State<Pagsingup> {
   final placaController = TextEditingController();
   final cidadeController = TextEditingController();
 
+  final CollectionReference cliente = FirebaseFirestore.instance.collection('cliente');
+
     Future criaCadastro() async {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
       email: usuarioController.text.trim(),
       password: senhaController.text.trim());
-      await adicionaDetalhes();
-      
-    }
 
-    Future adicionaDetalhes() async{
-      await FirebaseFirestore.instance.collection('cliente').add({
+      await cliente.add({
         'nome': nomeController.text.trim(),
         'placa carro': placaController.text.trim(),
         'cidade': cidadeController.text.trim(),
-        'uid': FirebaseAuth.instance.currentUser!.uid,
-      });
+        'uid': FirebaseAuth.instance.currentUser!.uid,});
     }
+
 
 
   Widget build(BuildContext context) {
