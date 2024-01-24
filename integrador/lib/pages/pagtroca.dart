@@ -37,19 +37,19 @@ class _PagtrocaState extends State<Pagtroca> {
     }
   }
 
-    Future<void> trocainfo(){
+    void trocainfo() async {
       if(nomeController.text.trim() != ""){
-        cliente.doc(rg).update({
+        await cliente.doc(rg).update({
           'nome': nomeController.text.trim(),
         });
       }
       if(placaController.text.trim() != ""){
-        cliente.doc(rg).update({
+        await cliente.doc(rg).update({
           'placa carro': placaController.text.trim(),
         });
       }
       if(cidadeController.text.trim() != ""){
-        cliente.doc(rg).update({
+        await cliente.doc(rg).update({
           'cidade': cidadeController.text.trim(),
         });
       }

@@ -55,10 +55,6 @@ class _PaghomeState extends State<Paghome> {
           FutureBuilder(
             future: iniRg(),
             builder: (context, snapshot) { 
-<<<<<<< HEAD
-              return Peganome(id: rg);
-           },
-=======
               if (rg!=""){
                 return Peganome(id: rg);
               }
@@ -66,7 +62,6 @@ class _PaghomeState extends State<Paghome> {
                 return Text('minha buceta');
               }
             },
->>>>>>> 28dbc87c5df8040b6b3dafee7f3ea2669189c5f8
           ),
 
           Text("fez login com " + user.email!),
