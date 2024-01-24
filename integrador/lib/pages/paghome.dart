@@ -16,7 +16,7 @@ class _PaghomeState extends State<Paghome> {
 
   final user = FirebaseAuth.instance.currentUser!;
   final CollectionReference cliente = FirebaseFirestore.instance.collection('cliente');
-  String rg = "";
+  late String rg;
 
   Future<void> pegaid() async {
     List<String> ids = [];
