@@ -13,6 +13,7 @@ class Pagsingup extends StatefulWidget {
 class _PagssingupState extends State<Pagsingup> {
 
   @override
+  
   final usuarioController = TextEditingController();
   final senhaController = TextEditingController();
   final confirmaController = TextEditingController();
@@ -20,23 +21,20 @@ class _PagssingupState extends State<Pagsingup> {
   final placaController = TextEditingController();
   final cidadeController = TextEditingController();
 
-    Future criaCadastro() async {
-      if (senhaController.text.trim() == confirmaController.text.trim()){
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: usuarioController.text.trim(),
-          password: senhaController.text.trim());
-        adicionaDetalhes();
-      }
-    }
+  final CollectionReference cliente = FirebaseFirestore.instance.collection('cliente');
 
-    Future adicionaDetalhes() async{
-      await FirebaseFirestore.instance.collection('cliente').add({
+    Future criaCadastro() async {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: usuarioController.text.trim(),
+      password: senhaController.text.trim());
+
+      await cliente.add({
         'nome': nomeController.text.trim(),
         'placa carro': placaController.text.trim(),
         'cidade': cidadeController.text.trim(),
-        'uid': FirebaseAuth.instance.currentUser!.uid,
-      });
+        'uid': FirebaseAuth.instance.currentUser!.uid,});
     }
+
 
 
   Widget build(BuildContext context) {
@@ -142,8 +140,10 @@ class _PagssingupState extends State<Pagsingup> {
 
                 GestureDetector(
                   onTap: (){
-                    criaCadastro();
-                    Navigator.pushNamed(context, '/pagmain');
+                    if (senhaController.text.trim() == confirmaController.text.trim()){
+                      criaCadastro();
+                      Navigator.pushNamed(context, '/pagmain');
+                    }
                   },
                   child: Container(
                     width: 100,

@@ -16,17 +16,13 @@ class _PaghomeState extends State<Paghome> {
 
   final user = FirebaseAuth.instance.currentUser!;
   final CollectionReference cliente = FirebaseFirestore.instance.collection('cliente');
-  late String rg;
+  String rg = "";
 
   Future<void> pegaid() async {
     List<String> ids = [];
 
-    try {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('cliente').get();
-      ids = querySnapshot.docs.map((doc) => doc.id).toList();
-    } catch (e) {
-      print('Erro ao obter IDs: $e');
-    }
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('cliente').get();
+    ids = querySnapshot.docs.map((doc) => doc.id).toList();
 
     for (var name in ids) {
       var documentSnapshot = await FirebaseFirestore.instance.collection('cliente').doc(name).get();
@@ -45,7 +41,9 @@ class _PaghomeState extends State<Paghome> {
 
   Future<void> deleta() async {
     await user.delete();
-    await cliente.doc(rg).delete();
+    if(rg!=""){
+      await cliente.doc(rg).delete();
+    }
     Navigator.pushNamed(context, '/paglogin');
   }
 
@@ -57,8 +55,18 @@ class _PaghomeState extends State<Paghome> {
           FutureBuilder(
             future: iniRg(),
             builder: (context, snapshot) { 
+<<<<<<< HEAD
               return Peganome(id: rg);
            },
+=======
+              if (rg!=""){
+                return Peganome(id: rg);
+              }
+              else{
+                return Text('minha buceta');
+              }
+            },
+>>>>>>> 28dbc87c5df8040b6b3dafee7f3ea2669189c5f8
           ),
 
           Text("fez login com " + user.email!),
