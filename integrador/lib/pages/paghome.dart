@@ -14,7 +14,7 @@ class Paghome extends StatefulWidget {
 
 class _PaghomeState extends State<Paghome> {
 
-    final user = FirebaseAuth.instance.currentUser!;
+  final user = FirebaseAuth.instance.currentUser!;
   final CollectionReference cliente = FirebaseFirestore.instance.collection('cliente');
   late String rg;
 
@@ -35,11 +35,11 @@ class _PaghomeState extends State<Paghome> {
           rg = name;
         });
         break;
-      }
+      } 
     }
   }
 
-  Future<void> initializeRg() async {
+  Future<void> iniRg() async {
       await pegaid();
   }
 
@@ -55,15 +55,10 @@ class _PaghomeState extends State<Paghome> {
       body: Center(child:Column(
         children: [
           FutureBuilder(
-            future: initializeRg(),
+            future: iniRg(),
             builder: (context, snapshot) { 
-              if (rg!=null){
-                return Peganome(id: rg);
-              }
-              else{
-                return Text('minha buceta');
-              }
-            },
+              return Peganome(id: rg);
+           },
           ),
 
           Text("fez login com " + user.email!),
