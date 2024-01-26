@@ -59,7 +59,7 @@ class _PaghomeState extends State<Paghome> {
                 return Peganome(id: rg);
               }
               else{
-                return Text('minha buceta');
+                return Text('falha ao obter dados');
               }
             },
           ),
