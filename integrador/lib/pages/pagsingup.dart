@@ -29,10 +29,10 @@ class _PagssingupState extends State<Pagsingup> {
       password: senhaController.text.trim());
 
       await cliente.add({
-        'nome': nomeController.text.trim(),
-        'placa carro': placaController.text.trim(),
-        'cidade': cidadeController.text.trim(),
-        'uid': FirebaseAuth.instance.currentUser!.uid,});
+        'nome': nomeController.text,
+        'placa carro': placaController.text,
+        'cidade': cidadeController.text,
+        'uid': FirebaseAuth.instance.currentUser?.uid});
     }
 
 
