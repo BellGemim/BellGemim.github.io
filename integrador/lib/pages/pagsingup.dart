@@ -23,7 +23,7 @@ class _PagssingupState extends State<Pagsingup> {
 
   final CollectionReference cliente = FirebaseFirestore.instance.collection('cliente');
 
-    Future criaCadastro() async {
+    void criaCadastro() async {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
       email: usuarioController.text.trim(),
       password: senhaController.text.trim());

@@ -48,7 +48,7 @@ class _PagloginState extends State<Paglogin> {
         backgroundColor: Colors.deepPurple,
         body : Center(
           child :Container(
-            height: 420,
+            height: 300,
             width: 600,
             color: Colors.deepPurple[400],
             child: ListView(
@@ -63,44 +63,10 @@ class _PagloginState extends State<Paglogin> {
                   width: 100,
                   height: 60,
                   margin: EdgeInsets.all(5),
-                  child: Center(
-                    child: Text(
-                      "Email:",
-                      style: TextStyle(
-                        fontSize: 30,
-                      ),
-                      ),
-                  ),
+                  child: TextField(controller: usuarioController ,
+                  decoration: InputDecoration(hintText: "Email"),),
                 ),
 
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    color: Colors.deepPurple[300],
-                  ),
-                  width: 100,
-                  height: 60,
-                  margin: EdgeInsets.all(5),
-                  child: TextField(controller: usuarioController ,),
-                ),
-
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    color: Colors.deepPurple[300],
-                  ),
-                  width: 100,
-                  height: 60,
-                  margin: EdgeInsets.all(5),
-                  child: Center(
-                    child: Text(
-                      "Senha :",
-                      style: TextStyle(
-                        fontSize: 30,
-                      ),
-                    ),
-                  ), 
-                ),
 
                 Container(
                   decoration: BoxDecoration(
@@ -113,6 +79,7 @@ class _PagloginState extends State<Paglogin> {
                   child: TextField(
                     controller: senhaController,
                     obscureText: true,
+                    decoration: InputDecoration(hintText: "senha"),
                     ),
                 ),
                 

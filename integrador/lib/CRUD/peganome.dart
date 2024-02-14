@@ -16,8 +16,8 @@ class Peganome extends StatelessWidget {
     return FutureBuilder<DocumentSnapshot>(
       future: cliente.doc(id).get(),
       builder: ((context, snapshot) {
-      Map<String,dynamic> data = snapshot.data!.data() as Map<String,dynamic>;
-      return Text('nome : ${data['nome']} cidade : ${data['cidade']} placa : ${data['placa carro']}');
+        Map<String,dynamic> info = snapshot.data!.data() as Map<String,dynamic>;
+        return Text('nome : ${info['nome']}, placa : ${info['placa carro']} cidade : ${info['cidade']}');
     }), 
     );
   }

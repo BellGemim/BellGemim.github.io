@@ -37,12 +37,22 @@ class _PagtrocaState extends State<Pagtroca> {
     }
   }
 
-    Future<void> trocainfo(){
-      return cliente.doc(rg).update({
-        'nome': nomeController.text.trim(),
-        'placa carro': placaController.text.trim(),
-        'cidade': cidadeController.text.trim(),
-      });
+    void trocainfo() async {
+      if(nomeController.text != ''){
+        await cliente.doc(rg).update({
+          'nome': nomeController.text.trim(),
+        });
+      }
+      if(placaController.text != ''){
+        await cliente.doc(rg).update({
+          'placa carro': placaController.text.trim(),
+        });
+      }
+      if(cidadeController.text != ''){
+        await cliente.doc(rg).update({
+          'cidade': cidadeController.text.trim(),
+        });
+      }
     }
 
 
@@ -103,8 +113,8 @@ class _PagtrocaState extends State<Pagtroca> {
                 
 
                 GestureDetector(
-                  onTap: (){
-                    pegaid();
+                  onTap: () async {
+                    await pegaid();
                     trocainfo();
                     Navigator.pushNamed(context, '/pagmain');
                   },
