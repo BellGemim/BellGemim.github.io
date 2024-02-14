@@ -28,7 +28,7 @@ class _PagssingupState extends State<Pagsingup> {
       email: usuarioController.text.trim(),
       password: senhaController.text.trim());
 
-      await cliente.add({
+       await cliente.add({
         'nome': nomeController.text,
         'placa carro': placaController.text,
         'cidade': cidadeController.text,
