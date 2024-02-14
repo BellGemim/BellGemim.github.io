@@ -17,7 +17,6 @@ class _PaghomeState extends State<Paghome> {
   final user = FirebaseAuth.instance.currentUser!;
   final CollectionReference cliente = FirebaseFirestore.instance.collection('cliente');
   String rg='';
-  late Map<String,dynamic> info;
 
 
   Future<void> pegaid() async {
@@ -40,7 +39,6 @@ class _PaghomeState extends State<Paghome> {
   Future<void> iniRg() async {
       await pegaid();
       await cliente.doc(rg).get();
-      info = snapshot.data!.data() as Map<String,dynamic>;
   }
 
   Future<void> deleta() async {
