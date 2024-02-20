@@ -1,10 +1,14 @@
 // ignore_for_file: prefer_const_constructors
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:integrador/pages/pagchange.dart';
+import 'package:integrador/pages/pagchoice.dart';
 import 'package:integrador/pages/paghome.dart';
 import 'package:integrador/pages/paglogin.dart';
 import 'package:integrador/pages/pagmain.dart';
+import 'package:integrador/pages/paggui.dart';
 import 'package:integrador/pages/pagsingup.dart';
 import 'package:integrador/pages/pagtroca.dart';
 
@@ -43,6 +47,9 @@ class MyApp extends StatelessWidget {
         '/paglogin' :(context) => Paglogin(),
         '/pagsign' :(context) => Pagsingup(),
         '/pagtroca' :(context) => Pagtroca(),
+        '/pagchoice' :(context) => Pagchoice(),
+        '/pagguincho' :(context) => Paggui(),
+        '/pagchange' :(context) => Pagchange(),
       },
     );
   }

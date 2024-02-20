@@ -3,33 +3,34 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Pagtroca extends StatefulWidget {
-  const Pagtroca({super.key});
+class Pagchange extends StatefulWidget {
+  const Pagchange({super.key});
 
   @override
-  State<Pagtroca> createState() => _PagtrocaState();
+  State<Pagchange> createState() => _PagchangeState();
 }
 
-class _PagtrocaState extends State<Pagtroca> {
+class _PagchangeState extends State<Pagchange> {
 
   final nomeController = TextEditingController();
   final placaController = TextEditingController();
   final cidadeController = TextEditingController();
+  final precoController = TextEditingController();
 
-  final CollectionReference cliente = FirebaseFirestore.instance.collection('cliente');
+  final CollectionReference guincho = FirebaseFirestore.instance.collection('guincho');
 
   final user = FirebaseAuth.instance.currentUser!;
   List <String> ids = [];
-  late String rg;
+  String rg='';
 
   Future pegaid() async {
-    await FirebaseFirestore.instance.collection('cliente').get().then(
+    await FirebaseFirestore.instance.collection('guincho').get().then(
       (snapshot) => snapshot.docs.forEach((documento) { 
           ids.add(documento.reference.id);
       })
     );
     for (var name in ids) {
-      var documentSnapshot = await FirebaseFirestore.instance.collection('cliente').doc(name).get();
+      var documentSnapshot = await FirebaseFirestore.instance.collection('guincho').doc(name).get();
       if (documentSnapshot.data()!['uid'] == user.uid) {
         rg = name; 
         break;
@@ -39,18 +40,23 @@ class _PagtrocaState extends State<Pagtroca> {
 
     void trocainfo() async {
       if(nomeController.text.trim() != ""){
-        await cliente.doc(rg).update({
+        await guincho.doc(rg).update({
           'nome': nomeController.text.trim(),
         });
       }
       if(placaController.text.trim() != ""){
-        await cliente.doc(rg).update({
-          'placa carro': placaController.text.trim(),
+        await guincho.doc(rg).update({
+          'placa': placaController.text.trim(),
         });
       }
       if(cidadeController.text.trim() != ""){
-        await cliente.doc(rg).update({
+        await guincho.doc(rg).update({
           'cidade': cidadeController.text.trim(),
+        });
+      }
+      if(precoController.text.trim() != ""){
+        await guincho.doc(rg).update({
+          'valor por kilometro': precoController.text.trim(),
         });
       }
     }
@@ -110,10 +116,24 @@ class _PagtrocaState extends State<Pagtroca> {
                     decoration: InputDecoration(hintText: "Cidade (tudo minusculo)"),
                     ),
                 ),
+
+                Container(
+                  width: 100,
+                  height: 53,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: Colors.deepPurple[300],
+                    ),
+                  margin: EdgeInsets.all(5),
+                  child: TextField(
+                    controller: precoController,
+                    decoration: InputDecoration(hintText: "preco por quilometro"),
+                    ),
+                ),
                 
 
                 GestureDetector(
-                  onTap: (){
+                  onTap: ()async{
                     pegaid();
                     trocainfo();
                     Navigator.pushNamed(context, '/pagmain');

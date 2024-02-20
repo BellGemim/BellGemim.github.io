@@ -2,14 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Pagsingup extends StatefulWidget {
-  const Pagsingup({super.key});
+class Paggui extends StatefulWidget {
+  const Paggui({super.key});
 
   @override
-  State<Pagsingup> createState() => _PagssingupState();
+  State<Paggui> createState() => _PagguiState();
 }
 
-class _PagssingupState extends State<Pagsingup> {
+class _PagguiState extends State<Paggui> {
 
   final usuarioController = TextEditingController();
   final senhaController = TextEditingController();
@@ -17,8 +17,9 @@ class _PagssingupState extends State<Pagsingup> {
   final nomeController = TextEditingController();
   final placaController = TextEditingController();
   final cidadeController = TextEditingController();
+  final precoController = TextEditingController();
 
-  final CollectionReference cliente = FirebaseFirestore.instance.collection('cliente');
+  final CollectionReference guincho = FirebaseFirestore.instance.collection('guincho');
 
     void criaCadastro() async {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -26,11 +27,12 @@ class _PagssingupState extends State<Pagsingup> {
       password: senhaController.text.trim());
 
       
-      await cliente.add({
+      await guincho.add({
         'nome': nomeController.text.trim(),
-        'placa carro': placaController.text.trim(),
+        'placa': placaController.text.trim(),
         'cidade': cidadeController.text.trim(),
-        'uid': FirebaseAuth.instance.currentUser!.uid,});
+        'uid': FirebaseAuth.instance.currentUser!.uid,
+        'valor por kilometro':precoController.text.trim()});
     }
 
 
@@ -40,7 +42,7 @@ class _PagssingupState extends State<Pagsingup> {
         backgroundColor: Colors.deepPurple,
         body : Center(
           child :Container(
-            height: 502,
+            height: 555,
             width: 600,
             color: Colors.deepPurple[400],
             child: ListView(
@@ -132,6 +134,20 @@ class _PagssingupState extends State<Pagsingup> {
                   child: TextField(
                     controller: cidadeController,
                     decoration: InputDecoration(hintText: "Cidade (tudo minusculo, sem acento e sem abreviacao)"),
+                    ),
+                ),
+
+                Container(
+                  width: 100,
+                  height: 53,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: Colors.deepPurple[300],
+                    ),
+                  margin: EdgeInsets.all(5),
+                  child: TextField(
+                    controller: precoController,
+                    decoration: InputDecoration(hintText: "valor por kilometro"),
                     ),
                 ),
                 

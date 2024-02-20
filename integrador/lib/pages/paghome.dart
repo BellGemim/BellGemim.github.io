@@ -16,35 +16,55 @@ class _PaghomeState extends State<Paghome> {
 
   final user = FirebaseAuth.instance.currentUser!;
   final CollectionReference cliente = FirebaseFirestore.instance.collection('cliente');
+  final CollectionReference guincho = FirebaseFirestore.instance.collection('guincho');
   String rg='';
-
+  bool cli = true;
+  
 
   Future<void> pegaid() async {
     List<String> ids = [];
+    List<String> guids = [];
 
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('cliente').get();
+    QuerySnapshot querySnapsh2 = await FirebaseFirestore.instance.collection('guincho').get();
     ids = querySnapshot.docs.map((doc) => doc.id).toList();
+    guids = querySnapsh2.docs.map((doc) => doc.id).toList();
 
     for (var name in ids) {
       var documentSnapshot = await FirebaseFirestore.instance.collection('cliente').doc(name).get();
       if (documentSnapshot.data()!['uid'] == user.uid) {
         setState(() {
           rg = name;
+          cli = true;
+        });
+        break;
+      } 
+    }
+    for (var name in guids) {
+      var documentSnapshot = await FirebaseFirestore.instance.collection('guincho').doc(name).get();
+      if (documentSnapshot.data()!['uid'] == user.uid) {
+        setState(() {
+          rg = name;
+          cli = false;
         });
         break;
       } 
     }
   }
 
+
+
   Future<void> iniRg() async {
       await pegaid();
-      await cliente.doc(rg).get();
   }
 
   Future<void> deleta() async {
     await user.delete();
-    if(rg!=""){
+    if((rg!="")&&(cli==true)){
       await cliente.doc(rg).delete();
+    }
+    if((rg!="")&&(cli==false)){
+      await guincho.doc(rg).delete();
     }
     Navigator.pushNamed(context, '/paglogin');
   }
@@ -52,17 +72,6 @@ class _PaghomeState extends State<Paghome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("matte guinchos")),
-        drawer: Drawer(
-          child: Column(
-            children: const [
-              DrawerHeader(
-                child: Image(
-                  image: AssetImage('assets/oie_transparent(1).png')),)
-            ],
-          )
-        ),
       body: Center(child:Column(
         children: [
           FutureBuilder(
@@ -94,7 +103,12 @@ class _PaghomeState extends State<Paghome> {
 
           GestureDetector(
             onTap: (){
-            Navigator.pushNamed(context, '/pagtroca');
+              if(cli==true){
+                Navigator.pushNamed(context, '/pagtroca');
+              }
+              else{
+                Navigator.pushNamed(context, '/pagchange');
+              }
           },
             child : Container(
               color: Colors.amber,
@@ -104,6 +118,8 @@ class _PaghomeState extends State<Paghome> {
               ),
             ),
           ),
+
+
 
           GestureDetector(
             onTap: (){
@@ -117,6 +133,7 @@ class _PaghomeState extends State<Paghome> {
               ),
             ),
           ),
+
 
         ],
       ))

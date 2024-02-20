@@ -109,7 +109,7 @@ class _PagloginState extends State<Paglogin> {
 
                 GestureDetector(
                   onTap: (){
-                    Navigator.pushNamed(context, '/pagsign');
+                    Navigator.pushNamed(context, '/pagchoice');
                   },
                   child: Container(
                     decoration: BoxDecoration(
